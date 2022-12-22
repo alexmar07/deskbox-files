@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('files', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('id');
             $table->string('name');
             $table->uuid('hash');
             $table->longText('path');
@@ -26,8 +26,9 @@ return new class extends Migration
             $table->uuid('user_id');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('directory_id')->references('id')->on('files')->onUpdate('cascade')->onDelete('cascade');
+            $table->primary('id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('directory_id')->references('id')->on('files')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
