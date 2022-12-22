@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+    api:
+        container_name: api
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - .:/app
+        ports:
+            - 8000:80
+        depends_on:
+            - api_db
+
+    api_db:
+        container_name: api_db
+        image: mysql:latest
+        environment:
+            MYSQL_DATABASE: db
+            MYSQL_USER: db_user
+            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: root
+        command:  mysqld --sql_mode=""
+        volumes:
+            - ./db:/var/lib/mysql
+        ports:
+            - 33060:3306
