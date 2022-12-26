@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->uuid('id');
             $table->string('name');
+            $table->string('ext', 6);
             $table->uuid('hash');
             $table->longText('path');
-            $table->enum('type', ['txt', 'generic', 'music', 'video', 'image'])->nullable();
+            $table->enum('type', ['txt', 'generic', 'audio', 'video', 'image'])->nullable();
             $table->boolean('is_folder')->default(false);
             $table->decimal('size', 12, 2, true);
             $table->smallInteger('n_files', unsigned: true)->default(0);
