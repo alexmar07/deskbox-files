@@ -11,19 +11,6 @@ use App\Http\Contracts\Repositories\FileRepositoryContract;
 
 class AppServiceProvider extends ServiceProvider {
 
-    protected $repositories = [
-        FileRepositoryContract::class => [
-            'concrete' => FileRepository::class,
-            'model' => File::class,
-        ]
-    ];
-
-    protected $services = [
-        FileServiceContract::class => [
-            'repository'    => FileRepositoryContract::class,
-            'service'       => FileService::class
-        ]
-    ];
 
     /**
      * Register any application services.
@@ -32,16 +19,5 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function register() {
 
-        foreach($this->repositories as $abstract => $impl) {
-            app()->bind($abstract, function ($app) use ($impl) {
-                return new $impl['concrete'](new $impl['model']);
-            });
-        }
-
-        foreach ($this->services as $abstract => $impl) {
-            app()->bind($abstract, function ($app) use ($impl) {
-                return new $impl['service']($app->make($impl['repository']));
-            });
-        }
     }
 }

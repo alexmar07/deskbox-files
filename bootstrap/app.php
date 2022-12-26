@@ -95,6 +95,9 @@ $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+// Custom Providers
+$app->register(App\Providers\ServicesRepositoriesServiceProvider::class);
+
 // Vendor providers
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
